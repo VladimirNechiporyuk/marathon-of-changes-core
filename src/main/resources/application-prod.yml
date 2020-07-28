@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      database: marathon_of_changes
