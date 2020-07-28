@@ -43,13 +43,12 @@ public class LevelServiceImpl implements LevelService {
             amountOfLevels--;
             createdLevels.add(firstLevel);
         }
-        Optional<Level> optionalLatestLevel = levelsRepository.findByNumber(getLatestLevelNumber().intValue());
+        Optional<Level> optionalLatestLevel = levelsRepository.findById(getLatestLevelNumber().intValue());
         if (optionalLatestLevel.isPresent()) {
             Level latestLevel = optionalLatestLevel.get();
             for (int i = 0; i < amountOfLevels; i++) {
                 Level levelForSave = Level.builder()
-                        .id(ObjectId.get())
-                        .number(latestLevel.getNumber() + 1)
+                        .id(latestLevel.getId() + 1)
                         .experienceValue(latestLevel.getExperienceValue() + stepOfExperienceAdding)
                         .build();
                 log.info("Creating level {}", levelForSave.toString());
@@ -72,19 +71,19 @@ public class LevelServiceImpl implements LevelService {
             log.warn("There is no levels in db");
             throw new LevelNotFoundException("There is no levels in db");
         } else {
-            levels.sort(Comparator.comparingInt(Level::getNumber));
+            levels.sort(Comparator.comparingInt(Level::getId));
             return levels;
         }
     }
 
     @Override
-    public Level getLevelByNumber(int number) {
-        Optional<Level> optionalLevel = levelsRepository.findByNumber(number);
+    public Level getLevelByNumber(int id) {
+        Optional<Level> optionalLevel = levelsRepository.findById(id);
         if (optionalLevel.isPresent()) {
             return optionalLevel.get();
         } else {
-            log.warn("Level with number {} does not exists", number);
-            throw new LevelNotFoundException(String.format("Level with number %s does not exists", number));
+            log.warn("Level with id {} does not exists", id);
+            throw new LevelNotFoundException(String.format("Level with id %s does not exists", id));
         }
     }
 
@@ -117,8 +116,7 @@ public class LevelServiceImpl implements LevelService {
         if (levelsRepository.count() == 0) {
             log.info("Creating first level");
             levelForSaving = Level.builder()
-                    .id(ObjectId.get())
-                    .number(1)
+                    .id(1)
                     .experienceValue(0)
                     .build();
             levelsRepository.save(levelForSaving);
@@ -132,7 +130,7 @@ public class LevelServiceImpl implements LevelService {
 
     private void sortingLevelsById() {
         List<Level> sortedLevels = getAllLevels().stream()
-                .sorted(Comparator.comparingInt(Level::getNumber))
+                .sorted(Comparator.comparingInt(Level::getId))
                 .collect(Collectors.toList());
         levelsRepository.deleteAll();
         levelsRepository.saveAll(sortedLevels);

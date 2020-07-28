@@ -24,7 +24,7 @@ public class SettingsUtils {
     }
 
     public Setting createSetting(CreateSettingDto createSettingDto) {
-        Setting setting = new Setting(settingsRepository.count(), createSettingDto.getName(), createSettingDto.getValue());
+        Setting setting = new Setting(ObjectId.get(), createSettingDto.getName(), createSettingDto.getValue());
         return settingsRepository.save(setting);
     }
 

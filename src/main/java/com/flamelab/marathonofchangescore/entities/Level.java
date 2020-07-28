@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,11 +19,8 @@ public class Level {
 
     @Id
     @JsonProperty("_id")
-    @JsonSerialize(using= ToStringSerializer.class)
-    private ObjectId id;
-
-    @JsonProperty("number")
-    private int number;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private int id;
 
     @JsonProperty("experienceValue")
     private long experienceValue;

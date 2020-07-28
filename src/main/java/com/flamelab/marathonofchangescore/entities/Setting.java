@@ -1,6 +1,8 @@
 package com.flamelab.marathonofchangescore.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,7 @@ public class Setting {
 
     @Id
     @JsonProperty("_id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
     @JsonProperty("name")

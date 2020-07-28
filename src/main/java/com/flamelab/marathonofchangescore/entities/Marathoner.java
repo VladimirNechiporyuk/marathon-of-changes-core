@@ -23,7 +23,7 @@ public class Marathoner {
 
     @Id
     @JsonProperty("_id")
-    @JsonSerialize(using= ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
     @JsonProperty("name")
@@ -36,6 +36,7 @@ public class Marathoner {
     private long experience;
 
     @JsonProperty("tasks")
+    @JsonSerialize(using = ToStringSerializer.class)
     private List<ObjectId> tasks;
 
     public MarathonerDto toDto() {

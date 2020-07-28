@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface LevelsRepository extends MongoRepository<Level, ObjectId> {
 
-    Optional<Level> findByNumber(int number);
+    Optional<Level> findById(int id);
 
     Optional<Level> findByExperienceValue(long experienceValue);
 

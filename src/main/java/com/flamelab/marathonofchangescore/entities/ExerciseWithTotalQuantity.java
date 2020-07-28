@@ -22,11 +22,11 @@ public class ExerciseWithTotalQuantity {
 
     @Id
     @JsonProperty("_id")
-    @JsonSerialize(using= ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
     @JsonProperty("marathonerId")
-    @JsonSerialize(using= ToStringSerializer.class)
+    @JsonSerialize(using = ToStringSerializer.class)
     private String marathonerId;
 
     @JsonProperty("exercise")
